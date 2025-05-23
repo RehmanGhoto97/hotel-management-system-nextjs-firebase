@@ -1,0 +1,111 @@
+@import "./../../styles/variables";
+
+// Define mixin with dynamic justify-content
+@mixin centerbox($jtf) {
+  display: flex;
+  align-items: center;
+  justify-content: #{$jtf}; // ✅ Correct interpolation
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  a:hover {
+    color: #6da300;
+  }
+  background-color: #151516;
+  padding: 1.5rem 0;
+
+  .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    .row {
+      padding: 1.5rem 5rem 80px;
+      display: flex;
+      margin: 0 -15px;
+      justify-content: center;
+      gap: 4rem;
+      width: 100%;
+      .col-1 {
+        padding: 0 15px;
+        flex: 0 0 25%;
+        position: relative;
+        width: 100%;
+        max-width: 25%;
+        .footer-intro {
+          color: white;
+          .logo {
+            @include centerbox(left);
+            cursor: pointer;
+            font-size: 2.5rem;
+            font-weight: normal;
+            gap: 0;
+            font-family: sans-serif;
+            span {
+              font-weight: 700;
+            }
+          }
+          h4 {
+            font-size: 1.563rem;
+            line-height: 1.3;
+            font-weight: 700;
+            margin-top: 0.3125rem;
+            padding: 1.5rem 0;
+          }
+          p {
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+}
+.row.footer-intro__social-media {
+  margin: 0 !important;
+  gap: 1rem !important;
+  justify-content: left !important;
+  padding: 1rem 0 !important;
+  .col-2 {
+    max-width: 16.666667%;
+    svg {
+      width: 2rem;
+      height: auto;
+      background: #fff;
+      color: #151516;
+      cursor: pointer;
+      padding: 0.52rem;
+      border-radius: 20%;
+    }
+  }
+}
+.col-2.ftr-right {
+  padding: 0 15px;
+  flex: 0 0 70%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 70%;
+  .col-2-row {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0 15px;
+    flex: 0 0 50%;
+    max-width: 50%;
+    display: flex;
+    .col-6 {
+      width: 100%;
+      
+      position: relative;
+      padding: 0 15px;
+      .ftr-right-submenu {
+        p {
+          margin-bottom: 1rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

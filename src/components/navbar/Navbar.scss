@@ -1,0 +1,82 @@
+@import "./../../styles/variables";
+
+// Define mixin with dynamic justify-content
+@mixin centerbox($jtf) {
+  display: flex;
+  align-items: center;
+  justify-content: #{$jtf}; // ✅ Correct interpolation
+}
+
+ul li {
+  color: #676a6c;
+}
+.btn-primary:hover {
+  background: linear-gradient(#060f12, #1699ed) !important;
+}
+.btn-primary.btn-outline {
+  color: #6da300;
+  background: #fff !important;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary.focus {
+  background-color: #0e342a !important;
+  border-color: #0e342a !important;
+  color: #ffffff !important;
+}
+.navbar {
+  @include centerbox(center);
+  width: 100%;
+  background: $colormain;
+  // background: linear-gradient(#060f12, #1699ed);
+
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  #navbarNavDropdown {
+      @include centerbox(space-between);
+    // width: 100%;
+  }
+  .container-fluid {
+    margin: 0 5%;
+    padding: 0.5rem 1.5rem;
+    @include centerbox(space-between);
+    gap: 2rem;
+    width: 100%;
+    .logo {
+      
+      @include centerbox(center);
+      cursor: pointer;
+      font-size: 2.5rem;
+      font-weight: normal;
+      gap: 0;
+      font-family: sans-serif;
+      span {
+        font-weight: 700;
+      }
+    }
+    .justify-between {
+      @include centerbox(space-between);
+      width: 100%;
+    }
+    ul {
+      @include centerbox(left);
+      width: 100%;
+      padding: 0.5rem 0;
+
+      list-style: none;
+      gap: 2rem;
+      li {
+        cursor: pointer;
+        font-family: Roboto;
+        color: #fcfeff;
+        font-weight: 600;
+        font-size: 1.259rem;
+      }
+      :hover {
+        color: rgba(196, 195, 231, 0.7);
+      }
+    }
+  }
+}
