@@ -1,0 +1,103 @@
+@mixin centerbox($jtf) {
+  display: flex;
+  align-items: center;
+  justify-content: #{$jtf}; // ✅ Correct interpolation
+}
+.row-container {
+  margin-top: 3rem;
+  width: 100%;
+  //   @include centerbox(flex-start);
+  //   flex-direction: column;
+  ul {
+    @include centerbox(flex-start);
+    flex-wrap: nowrap;
+    width: 100%;
+    border-bottom: 1px solid #dee2e6;
+    li {
+      cursor: pointer;
+      font-weight: bold;
+      p {
+        border-top-right-radius: 0.25rem;
+        border-top-left-radius: 0.25rem;
+        border: 1px solid transparent;
+        margin-bottom: -1px;
+        display: block;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out;
+      }
+      p:hover {
+        border-color: #e9ecef #e9ecef #dee2e6;
+        //   isolation: isolate;
+      }
+    }
+    .nav-item.active {
+      p {
+        background: linear-gradient(#306f88, #6bb8e9);
+        color: #fff;
+        border-color: #dee2e6 #dee2e6 #fff;
+      }
+    }
+  }
+}
+.tab-content {
+  margin-top: 0.25rem;
+  width: 100%;
+  .tab-pan {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    margin-top: 1rem;
+    .table-resposive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      h2 {
+        font-size: calc(1.325rem + 0.9vw);
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        line-height: 1.2;
+      }
+      .table {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        vertical-align: top;
+        border-color: #dee2e6;
+        caption-side: bottom;
+        border-collapse: collapse;
+        thead {
+          border-bottom: 1px solid black;
+        }
+        tbody,
+        td,
+        th,
+        thead,
+        tr {
+          border-color: inherit;
+          border-style: solid;
+          border-width: 0;
+        }
+        tboday {
+          width: 100%;
+          margin-bottom: 1rem;
+          color: #212529;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+}
+.row-noPrint.btn-row {
+  margin: 1.5rem 0;
+  @include centerbox(space-evenly);
+  .col-md-4 {
+    width: 100%;
+    @include centerbox(center);
+    button {
+      font-weight: bold;
+    }
+  }
+}
