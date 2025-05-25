@@ -76,15 +76,72 @@
         th,
         thead,
         tr {
-          border-color: inherit;
-          border-style: solid;
-          border-width: 0;
-        }
-        tboday {
-          width: 100%;
+          -webkit-border-horizontal-spacing: 2px;
+          -webkit-border-vertical-spacing: 2px;
+
           margin-bottom: 1rem;
           color: #212529;
           vertical-align: top;
+        }
+        .bg-strpped {
+          background: rgba(0, 0, 0, 0.05);
+
+          border-bottom: 0.1px solid #c7cbcf;
+        }
+        tr {
+          overflow-x: scroll;
+          width: 100%;
+          text-align: center;
+        }
+        tbody {
+          margin-bottom: 1rem;
+          color: #212529;
+          vertical-align: top;
+          tr {
+            height: 51px;
+            .td-btn {
+              text-wrap-mode: nowrap;
+            }
+            td {
+              align-content: center;
+              button {
+                color: #fff;
+                padding: 0.25rem;
+                font-size: 1rem;
+                margin-left: 0.2rem;
+                border-radius: 0.25rem;
+                cursor: pointer;
+              }
+              .edit-btn {
+                color: #fff;
+                background-color: #0d6efd;
+                border-color: #0d6efd;
+              }
+              .edit-btn:hover {
+                color: #fff;
+                background-color: #0b5ed7;
+                border-color: #0a58ca;
+              }
+              .delete-btn {
+                color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+              }
+              .delete-btn:hover {
+                color: #fff;
+                background-color: #bb2d3b;
+                border-color: #b02a37;
+              }
+              .check-btn {
+                color: #fff;
+                background-color: #0dcaf0;
+                border-color: #0dcaf0;
+              }
+              .check-btn:hover {
+                background: #22bcdb;
+              }
+            }
+          }
         }
       }
     }

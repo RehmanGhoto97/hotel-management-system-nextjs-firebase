@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/providers/AuthProvider";
 
 export const metadata = {
   title: "dashboard",
@@ -6,10 +7,14 @@ export const metadata = {
 
 export default function DashboardLayout({ children }) {
   return (
-    <section className="dashboard-layout " style={{padding:"3rem 2rem"}}>
-      
-      {/* You can add a sidebar, header, etc. */}
-      {children}
-    </section>
+    <AuthProvider>
+
+      <section className="dashboard-layout " style={{ padding: "3rem 2rem" }}>
+
+        {/* You can add a sidebar, header, etc. */}
+        {children}
+      </section>
+
+    </AuthProvider>
   );
 }

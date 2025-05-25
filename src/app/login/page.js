@@ -5,11 +5,14 @@ import hotelImg from "/assets/img/hotel-1.jpg";
 import loginImg from "/assets/img/login.jpg";
 import signupImg from "/assets/img/signup-2.webp";
 import { useState } from "react";
+import { loginId } from "@/slices/bookingSlice";
 import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { useDispatch } from "react-redux";
 
 export default function LoginPage() {
+    const dispatch = useDispatch();
   const initialFormData = {
     name: "",
     hotelName: "",
@@ -27,16 +30,22 @@ export default function LoginPage() {
     }));
   };
   const SignUpSubmit = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "users"), formData);
-      alert("Saved with ID: " + docRef.id);
-      setActive(!active);
-      setFormData(initialFormData);
-    } catch (err) {
-      console.error("Error saving:", err);
-      alert("Failed to save.");
+  try {
+    if (!formData.userEmail) {
+      alert("User ID is required.");
+      return;
     }
-  };
+dispatch(loginId({loginId:formData.userEmail}))
+    // Save user document with custom ID
+    await setDoc(doc(db, "users", formData.userEmail), formData);
+
+    alert("User saved with ID: " + formData.userEmail);
+    setActive(!active);
+    setFormData(initialFormData);
+  } catch (err) {
+    console.error("Error saving user:", err);
+    alert("Failed to save user.");
+  }}
   // -----------------------------login logic------------------
 
   const router = useRouter(); // Next.js router
@@ -52,6 +61,7 @@ export default function LoginPage() {
 
       if (!querySnapshot.empty) {
         // ✅ Login success
+        dispatch(loginId({loginId:formData.userEmail}))
         alert("Login successful!");
         router.push("/dashboard"); // redirect to dashboard
         setFormData(initialFormData);

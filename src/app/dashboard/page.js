@@ -1,77 +1,21 @@
 "use client";
 import { useState } from "react";
 import "./index.scss";
+import { FaCheck, FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import ModalBooking from "@/components/modalBooking/ModalBooking";
+import { useSelector } from "react-redux";
+import { addBooking } from "@/slices/bookingSlice";
 
 export default function DashboardPage() {
+  const bookings = useSelector((state) => state.booking.list);
+  console.log(bookings);
   const [togglepage, setTogglepage] = useState("booking");
-  const data = [
-    {
-      id:1,
-      name: "Ali",
-      location: "gtk",
-      roomNo: 22,
-      totalPerson: 2,
-      chechin: "05-May-2025",
-      checkout: "15-May-2025",
-      price: 5000,
-      mobile:923112730732,
-      notice:"ok he yeh customer",
+  const [modalOpen, setModalOpen] = useState(false);
+  const toggleBooking = () => {
+    setModalOpen(true);
+  };
 
-    },
-       {
-      id:2,
-      name: "Zufi",
-      location: "lhr",
-      roomNo: 22,
-      totalPerson: 2,
-      chechin: "05-May-2025",
-      checkout: "15-May-2025",
-      price: 5000,
-      mobile:923152730732,
-      notice:"ok he yeh customer",
-
-    },
-       {
-      id:3,
-      name: "Alisha",
-      location: "krk",
-      roomNo: 22,
-      totalPerson: 2,
-      chechin: "05-May-2025",
-      checkout: "15-May-2025",
-      price: 5000,
-      mobile:923042730732,
-      notice:"ok he yeh customer",
-
-    },
-       {
-      id:4,
-      name: "Junaid",
-      location: "rts",
-      roomNo: 22,
-      totalPerson: 2,
-      chechin: "05-May-2025",
-      checkout: "15-May-2025",
-      price: 5000,
-      mobile:923012730732,
-      notice:"ok he yeh customer",
-
-    },
-       {
-      id:1,
-      name: "Ali",
-      location: "gtk",
-      roomNo: 22,
-      totalPerson: 2,
-      chechin: "05-May-2025",
-      checkout: "15-May-2025",
-      price: 5000,
-      mobile:923052730732,
-      notice:"ok he yeh customer",
-
-    },
- 
-  ];
   return (
     <div>
       <div className="row-container">
@@ -105,20 +49,24 @@ export default function DashboardPage() {
           {togglepage == "booking" ? (
             // ---------------------------------------booking tab ---------------------------------
             <div
-              className={`tab-pan booking-tab ${
-                togglepage == "booking" ? "active" : ""
-              }`}
+              className={`tab-pan booking-tab ${togglepage == "booking" ? "active" : ""
+                }`}
             >
               <div className="row-noPrint btn-row">
                 <div className="col-md-4">
-                  <button className="btn">Register</button>
+                  <button onClick={toggleBooking} className="btn">
+                    Register
+                  </button>
+
+                  <ModalBooking isOpen={modalOpen} setIsOpen={setModalOpen} />
+
                 </div>
                 <div className="col-md-4">
                   <button className="btn">Print</button>
                 </div>
                 <div className="col-md-4">
                   <button className="btn">
-                    Total Bookings = <span>{0}</span>
+                    Total Bookings = <span>{bookings.length-1}</span>
                   </button>
                 </div>
               </div>
@@ -128,8 +76,8 @@ export default function DashboardPage() {
                   <thead>
                     <tr>
                       <th>Sr.no</th>
-                      <th>Location</th>
                       <th>full name</th>
+                      <th>Location</th>
                       <th>Room no</th>
                       <th>total person</th>
                       <th>checkIn</th>
@@ -141,7 +89,39 @@ export default function DashboardPage() {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody className="booking-list">
+                    {bookings.map((item, index) => (
+                      
+                      !item.loginId && 
+                      <tr
+                        key={index}
+                        className={`${index % 2 == 0 ? "bg-strpped" : " "}`}
+                      >
+                        <td className="nowrap">{index+1}</td>
+                        <td className="nowrap">{item.fulName}</td>
+                        <td className="nowrap">{item.location}</td>
+                        <td className="nowrap">{item.roomNo}</td>
+                        <td className="nowrap">{item.totalPersons}</td>
+                        <td className="nowrap">{item.checkIn}</td>
+                        <td className="nowrap">{item.checkOut}</td>
+                        <td className="nowrap">{item.price}</td>
+                        <td className="nowrap">{item.mobileNo}</td>
+                        <td className="nowrap">{item.notice}</td>
+                        <td className="nowrap">{item.bookedOn}</td>
+                        <td className="nowrap td-btn">
+                          <button type="button" className="edit-btn">
+                            <FaRegEdit />
+                          </button>
+                          <button type="button" className="check-btn">
+                            <FaCheck />
+                          </button>
+                          <button type="button" className="delete-btn">
+                            <MdDelete />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </div>
               <div className="show-booking-rooms"></div>
@@ -149,9 +129,8 @@ export default function DashboardPage() {
           ) : togglepage == "inhouse" ? (
             // ---------------------------------------inhouse tab ---------------------------------
             <div
-              className={`tab-pan inhouse-tab ${
-                togglepage == "inhouse" ? "active" : ""
-              }`}
+              className={`tab-pan inhouse-tab ${togglepage == "inhouse" ? "active" : ""
+                }`}
             >
               <div className="row-noPrint btn-row">
                 <div className="col-md-4">
@@ -172,9 +151,8 @@ export default function DashboardPage() {
           ) : togglepage == "archive" ? (
             // ---------------------------------------archive tab ---------------------------------
             <div
-              className={`tab-pan archive-tab ${
-                togglepage == "archive" ? "active" : ""
-              }`}
+              className={`tab-pan archive-tab ${togglepage == "archive" ? "active" : ""
+                }`}
             >
               <div className="row-noPrint btn-row">
                 <div className="col-md-4">
@@ -192,9 +170,8 @@ export default function DashboardPage() {
           ) : (
             // ---------------------------------------cashier tab ---------------------------------
             <div
-              className={`tab-pan cashier-tab ${
-                togglepage == "cashier" ? "active" : ""
-              }`}
+              className={`tab-pan cashier-tab ${togglepage == "cashier" ? "active" : ""
+                }`}
             >
               cashier
             </div>
